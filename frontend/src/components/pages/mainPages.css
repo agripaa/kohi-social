@@ -47,8 +47,8 @@ nav h3 {
     flex-direction: column;
     width: 200px;
     position: fixed;
-    right: 100px;
-    margin-top: 20px;
+    right: 150px;
+    margin-top: 10px;
 }
 
 .main {
@@ -179,16 +179,45 @@ nav h3 {
     display: flex;
     flex-direction: row;
     height: 90px;
-    width: 280px;
+    width: 340px;
     align-items: center;
-    border: 1px solid black;
+    margin-top: 20px;
+}
+
+.left__card{
+    display: flex;
+    align-items: center;
+    height: 80px;
+}
+
+.right__card{
+    display: flex;
+    flex-direction: column;
+    height: 80px;
+    margin-left: 20px;
 }
 
 .img__user img {
-    width: 40px;
-    height: 40px;
+    width: 80px;
+    height: 80px;
+    border-radius: 10px 0 0 10px;
 }
 
+.name__user {
+    font-size: 20px;
+    margin-top: 7px;
+    height: 25px;
+}
+
+
+.desc__user {
+    font-size: 13px;
+    font-weight: 500;
+    height: 50px;
+    margin: 0 auto ;
+    align-items: center;
+    justify-content: center;
+}
 /* *{
     border: 1px solid black;
 } */

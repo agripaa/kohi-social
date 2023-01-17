@@ -92,7 +92,7 @@ export const updatePostings = async(req, res) => {
         })
     }
 
-    const {name, desc} = req.body;
+    const { name, desc } = req.body;
     const url = `${req.protocol}://${req.get("host")}/images/${fileName}`
     try {
         const result = await Postings.update({

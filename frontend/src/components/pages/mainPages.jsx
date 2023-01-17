@@ -5,17 +5,19 @@ import { BsPeople, BsPerson } from 'react-icons/bs';
 import { FiPlusSquare, FiSettings } from 'react-icons/fi';
 import { SlOptions } from 'react-icons/sl';
 import profile from '../images/profile.jpg'
-import RandomPost from './randomPost';
 import Loading from './loading';
+import Popup from './Popup';
 import './mainPages.css';
 import './loading.css';
 
 const MainPages = () => {
     const [postings, setPostings] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [btnPopup, setBtnPopup] = useState(false);
 
     const baseURL = "http://localhost:5000/postings"
-
+    let RandNum1 = getRandomId(1, 5)
+    let RandNum2 = getRandomId(1, 20)
 
     useEffect(() => {
         getPostings(); 
@@ -35,15 +37,24 @@ const MainPages = () => {
         }
     }
 
+    
+
     async function deletePostings(posting){
         setLoading(true)
         try {
             await axios.delete(`${baseURL}/${posting}`)
+            window.location.reload()
             setLoading(false)
         } catch (err) {
             setLoading(false)
             window.location.href = "/error"
         }
+    }
+
+    function getRandomId(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min) + min); 
     }
 
   return (
@@ -85,7 +96,16 @@ const MainPages = () => {
                                                             <p className='type'>user</p>
                                                         </div>
                                                         <div className="option">
-                                                            <SlOptions />
+                                                            <SlOptions
+                                                            onClick={() => setBtnPopup(true)} 
+                                                            />
+                                                            <Popup 
+                                                            trigger={btnPopup} 
+                                                            setTrigger={setBtnPopup}>
+                                                                <a 
+                                                                onClick={() => deletePostings(posting.id)}
+                                                                >Delete</a>
+                                                            </Popup>    
                                                         </div>
                                                     </div>
                                                     <div className='images'>
@@ -106,7 +126,27 @@ const MainPages = () => {
                     </div>
                     <div className="stand"></div>
                     <div className='new__upload'>
-                        
+                        {postings.slice(RandNum1, RandNum2).map((posting, i) => {
+                            return(
+                                <>
+                                    <div className="card" key={i}>
+                                        <div className="left__card">
+                                            <div className="img__user">
+                                                <img src={posting.url} alt={posting.name} />
+                                            </div>
+                                        </div>
+                                        <div className="right__card">
+                                            <div className="name__user">
+                                                <h5>{posting.name}</h5>
+                                            </div>
+                                            <div className="desc__user">
+                                                <p>{posting.desc}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </>
+                            )
+                        })}
                     </div>
                 </div>
             </section>
@@ -117,24 +157,3 @@ const MainPages = () => {
 
 export default MainPages
 
-// {postings.slice(1, 3).map((posting, i) => {
-//     return(
-//         <>
-//             <div className="card" key={i}>
-//                 <div className="left__content">
-//                     <div className="img__user">
-//                         <img src={posting.url} alt={posting.name} />
-//                     </div>
-//                 </div>
-//                 <div className="right__card">
-//                     <div className="name__user">
-//                         <h5>{posting.name}</h5>
-//                     </div>
-//                     <div className="desc__user">
-//                         <p>{posting.desc}</p>
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-//     )
-// })}

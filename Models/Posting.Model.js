@@ -12,6 +12,6 @@ const Postings = db.define('kohi_social',{
 
 export default Postings;
 
-// (async () => {
-//     db.sync();
-// })();
+(async () => {
+    db.sync();
+})();
